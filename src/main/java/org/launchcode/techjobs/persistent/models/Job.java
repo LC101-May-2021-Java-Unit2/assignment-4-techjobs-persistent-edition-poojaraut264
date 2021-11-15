@@ -1,24 +1,27 @@
 package org.launchcode.techjobs.persistent.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Entity
 public class Job extends AbstractEntity{
 
     @ManyToOne
-    private Employer employer;
+    @NotNull
+    private Employer employer = new Employer();
 
     @ManyToMany
-    private List<Skill> skills;
+    private List<Skill> skills = new ArrayList<>();
 
-    public Job() {
+    public Job(Employer employer, List<Skill> skills) {
+        this.employer = employer;
+        this.skills = skills;
     }
 
-    public Job(Employer anEmployer, List<Skill> someSkills) {
-        super();
-        this.employer = anEmployer;
-        this.skills = someSkills;
+    public Job() {
     }
 
     // Getters and setters.
@@ -38,4 +41,5 @@ public class Job extends AbstractEntity{
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
     }
+
 }
